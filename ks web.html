@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Analysis</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+
+  <!-- FontAwesome & Tailwind -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-Lite green-100 font-['El_Messiri']">
+  
+  <div class="container mx-auto p-5">
+    <h1 class="text-center text-3xl font-bold text-green-600">KS AI PRO</h1>
+
+    <!-- Period & Result Box -->
+    <div class="bg-white p-4 rounded-lg shadow-md mt-4 text-center">
+      <p class="text-lg font-semibold text-gray-700"><i class="fas fa-calendar-alt"></i> Period: <span id="period-number" class="text-black"></span></p>
+      <p class="text-lg font-semibold text-lite blu-700"><i class="fas fa-chart-line"></i> Result: <span id="predicted-result" class="text-green-500 font-bold">Loading...</span></p>
+    </div>
+
+    <!-- Analysis Section -->
+    <div class="bg-white p-4 rounded-lg shadow-md mt-4">
+      <h2 class="text-lg font-semibold text-gray-700 text-center">Analysis</h2>
+      <div class="grid grid-cols-2 gap-4 mt-2">
+        <div class="bg-green-50 p-3 rounded text-center">
+          <p class="text-gray-600">Winn Count</p>
+          <p id="won-count" class="text-xl font-bold text-green-500">0</p>
+        </div>
+        <div class="bg-green-50 p-3 rounded text-center">
+          <p class="text-gray-600">Loss Count</p>
+          <p id="lost-count" class="text-xl font-bold text-red-500">0</p>
+        </div>
+        <div class="bg-green-50 p-3 rounded text-center">
+          <p class="text-gray-600">Winn %</p>
+          <p id="won-percentage" class="text-xl font-bold text-green-500">0%</p>
+        </div>
+        <div class="bg-green-50 p-3 rounded text-center">
+          <p class="text-gray-600">Auto-Reverse</p>
+          <p class="text-xl font-bold text-gray-500">Inactive</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- History Section -->
+    <div class="bg-white p-4 rounded-lg shadow-md mt-4">
+      <h2 class="text-lg font-semibold text-gray-700 text-center">History</h2>
+      <div id="history-list" class="grid grid-cols-1 gap-1 mt-1"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
