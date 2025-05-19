@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AK Updated Wingo</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        * { 
+
+            margin: 0; 
+
+            padding: 0; 
+
+            box-sizing: border-box; 
+
+            font-family: 'El Messiri', sans-serif; 
+
+            text-align: center; 
+
+        }
+
+        
+
+        body { 
+
+            background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLbbSTOqV0VGzhxx9QO5woJjCj4O6YsO-1nQF36tRZ-SN4-635brJQJpc&s=10') no-repeat center center fixed; 
+
+            background-size: cover; 
+
+            display: flex; 
+
+            justify-content: center; 
+
+            align-items: center; 
+
+            min-height: 100vh; 
+
+            color: white; 
+
+        }
+
+        
+
+        .container {
+
+            width: 98%; 
+
+            max-width: 420px; 
+
+            animation: fadeIn 0.5s ease-in-out;
+
+        }
+
+        
+
+        .box { 
+
+            background: rgba(0, 0, 0, 0.7); 
+
+            backdrop-filter: blur(12px); 
+
+            border-radius: 15px; 
+
+            padding: 20px; 
+
+            margin-bottom: 22px; 
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+            transition: transform 0.3s ease;
+
+        }
+
+        
+
+        .box:hover {
+
+            transform: translateY(-5px);
+
+        }
+
+        
+
+        h2 {
+
+            color: #FFD700;
+
+            margin-bottom: 10px;
+
+            font-size: 22px;
+
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+
+        }
+
+        
+
+        .title-animation {
+
+            animation: shakeGlow 2s infinite;
+
+            display: inline-block;
+
+        }
+
+        
+
+        .grid { 
+
+            display: grid; 
+
+            grid-template-columns: repeat(2, 1fr); 
+
+            gap: 12px; 
+
+            margin-top: 15px; 
+
+        }
+
+        
+
+        .status-box { 
+
+            padding: 12px; 
+
+            border-radius: 13px; 
+
+            font-size: 10px; 
+
+            font-weight: bold; 
+
+            transition: all 0.3s ease;
+
+        }
+
+        
+
+        .status-box:hover {
+
+            transform: scale(1.03);
+
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+
+        }
+
+        
+
+        .green { 
+
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.2), rgba(0, 150, 0, 0.3)); 
+
+            border: 1px solid rgba(0, 255, 0, 0.5); 
+
+        }
+
+        
+
+        .red { 
+
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(150, 0, 0, 0.3)); 
+
+            border: 1px solid rgba(255, 0, 0, 0.5); 
+
+        }
+
+        
+
+        .blue { 
+
+            background: linear-gradient(135deg, rgba(0, 0, 255, 0.2), rgba(0, 0, 150, 0.3)); 
+
+            border: 1px solid rgba(0, 0, 255, 0.5); 
+
+        }
+
+        
+
+        .grey { 
+
+            background: linear-gradient(135deg, rgba(128, 128, 128, 0.2), rgba(80, 80, 80, 0.3)); 
+
+            border: 1px solid rgba(128, 128, 128, 0.5); 
+
+        }
+
+        
+
+        table { 
+
+            width: 100%; 
+
+            border-collapse: separate;
+
+            border-spacing: 0 8px;
+
+        }
+
+        
+
+        th, td { 
+
+            padding: 8px 5px; 
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
+
+        }
+
+        
+
+        th {
+
+            background: rgba(255, 255, 255, 0.1);
+
+            font-weight: 700;
+
+        }
+
+        
+
+        tr {
+
+            background: rgba(255, 255, 255, 0.05);
+
+            transition: all 0.3s ease;
+
+        }
+
+        
+
+        tr:hover {
+
+            background: rgba(255, 255, 255, 0.1);
+
+            transform: translateX(5px);
+
+        }
+
+        
+
+        .win {
+
+            color: #00ff00;
+
+            font-weight: bold;
+
+            text-shadow: 0 0 5px #00ff00;
+
+            animation: pulse 1.5s infinite;
+
+        }
+
+        
+
+        .loss { 
+
+            color: #ff0000; 
+
+            font-weight: bold; 
+
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+
+        }
+
+        
+
+        .pending { 
+
+            color: #00BFFF; 
+
+            font-weight: bold; 
+
+            text-shadow: 0 0 5px rgba(0, 191, 255, 0.5);
+
+        }
+
+        
+
+        #currentPeriod {
+
+            font-weight: bold;
+
+            color: #FFD700;
+
+        }
+
+        
+
+        #prediction {
+
+            font-weight: bold;
+
+            font-size: 20px;
+
+            color: #4ECDC4;
+
+            text-shadow: 0 0 5px rgba(78, 205, 196, 0.5);
+
+        }
+
+        
+
+        .timer {
+
+            margin-top: 10px;
+
+            font-size: 14px;
+
+            color: rgba(255, 255, 255, 0.8);
+
+        }
+
+        
+
+        @keyframes fadeIn {
+
+            from { opacity: 0; transform: translateY(20px); }
+
+            to { opacity: 1; transform: translateY(0); }
+
+        }
+
+        
+
+        @keyframes pulse {
+
+            0% { opacity: 1; }
+
+            50% { opacity: 0.7; }
+
+            100% { opacity: 1; }
+
+        }
+
+        
+
+        @keyframes shakeGlow {
+
+            0% { transform: translateX(0) rotate(0deg); text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
+
+            205% { transform: translateX(-2px) rotate(-1deg); text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); }
+
+            50% { transform: translateX(60px) rotate(1deg); text-shadow: 0 0 20px rgba(255, 215, 0, 1); }
+
+            75% { transform: translateX(-2px) rotate(-1deg); text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); }
+
+            100% { transform: translateX(0) rotate(0deg); text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
+
+        }
+
+        
+
+        .status-icon {
+
+            margin-right: 5px;
+
+        }
+
+        
+
+        .algorithm-info {
+
+            font-size: 12px;
+
+            color: rgba(255, 255, 255, 0.7);
+
+            margin-top: 10px;
+
+            text-align: left;
+
+        }
+
+        
+
+        .calculation {
+
+            font-family: monospace;
+
+            background: rgba(255, 255, 255, 0.1);
+
+            padding: 8px;
+
+            border-radius: 5px;
+
+            margin: 8px 0;
+
+            overflow-x: auto;
+
+            white-space: pre-wrap;
+
+            word-wrap: break-word;
+
+            display: none;
+
+        }
+
+        
+
+        .final-prediction {
+
+            font-family: monospace;
+
+            background: rgba(255, 255, 255, 0.1);
+
+            padding: 8px;
+
+            border-radius: 5px;
+
+            margin: 8px 0;
+
+            font-weight: bold;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="box">
+
+            <h2><i class="fas fa-crown status-icon"></i><span class="title-animation">ALL WINGO NUMBER BOT</span></h2>
+
+            <div class="timer">Last updated: <span id="updateTime">Just now</span></div>
+
+        </div>
+
+        
+
+        <div class="box">
+
+            <p><b>Current Period:</b> <span id="currentPeriod">Loading...</span></p>
+
+            <p><b>Prediction:</b> <span id="prediction">Loading...</span></p>
+
+            <div class="algorithm-info">
+
+                <div class="calculation" id="calculationSteps">Waiting for data to calculate prediction...</div>
+
+                <div class="final-prediction" id="finalPrediction"></div>
+
+            </div>
+
+        </div>
+
+        
+
+        <div class="box">
+
+            <h2><i class="fas fa-chart-pie status-icon"></i>Analysis</h2>
+
+            <div class="grid">
+
+                <div class="status-box green">
+
+                    <p><i class="fas fa-trophy"></i> WIN Count</p>
+
+                    <span id="totalWins">0</span>
+
+                </div>
+
+                <div class="status-box red">
+
+                    <p><i class="fas fa-times-circle"></i> Lost Count</p>
+
+                    <span id="totalLosses">0</span>
+
+                </div>
+
+                <div class="status-box blue">
+
+                    <p><i class="fas fa-percentage"></i> WIN %</p>
+
+                    <span id="accuracy">0%</span>
+
+                </div>
+
+                <div class="status-box grey">
+
+                    <p><i class="fas fa-sync-alt"></i> Auto-Reverse</p>
+
+                    <span>Active</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        
+
+        <div class="box">
+
+            <h2><i class="fas fa-history status-icon"></i>History</h2>
+
+            <table id="historyTable">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Period</th>
+
+                        <th>Prediction</th>
+
+                        <th>Result</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="historyList"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+<script>
+
+    let historyData = JSON.parse(localStorage.getItem('wingoHistory')) || [];
+
+    let lastFetchedPeriod = null;
+
+    const HISTORY_LENGTH = 10;
+
+    let lastResults = [];
+
+    let predictionStored = false;
+
+
+
+    // Update timestamp
+
+    function updateTimestamp() {
+
+        document.getElementById('updateTime').textContent = new Date().toLocaleTimeString();
+
+    }
+
+
+
+    // Fetch current game issue
+
+    async function fetchCurrentGameIssue() {
+
+        try {
+
+            const response = await fetch("https://api.bdg88zf.com/api/webapi/GetGameIssue", {
+
+                method: "POST",
+
+                headers: { "Content-Type": "application/json" },
+
+                body: JSON.stringify({
+
+                    typeId: 1,
+
+                    language: 0,
+
+                    random: "40079dcba93a48769c6ee9d4d4fae23f",
+
+                    signature: "D12108C4F57C549D82B23A91E0FA20AE",
+
+                    timestamp: Math.floor(Date.now() / 1000)
+
+                })
+
+            });
+
+
+
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+            
+
+            const data = await response.json();
+
+            if (data.code === 0) {
+
+                return data.data.issueNumber;
+
+            }
+
+            return null;
+
+        } catch (error) {
+
+            console.error("Error fetching current game issue:", error);
+
+            return null;
+
+        }
+
+    }
+
+
+
+    // Fetch game results
+
+    async function fetchGameResults() {
+
+        try {
+
+            const response = await fetch("https://api.bdg88zf.com/api/webapi/GetNoaverageEmerdList", {
+
+                method: "POST",
+
+                headers: { "Content-Type": "application/json" },
+
+                body: JSON.stringify({
+
+                    pageSize: 10,
+
+                    pageNo: 1,
+
+                    typeId: 1,
+
+                    language: 0,
+
+                    random: "c2505d9138da4e3780b2c2b34f2fb789",
+
+                    signature: "7D637E060DA35C0C6E28DC6D23D71BED",
+
+                    timestamp: Math.floor(Date.now() / 1000)
+
+                })
+
+            });
+
+
+
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+            
+
+            const data = await response.json();
+
+            if (data.code === 0 && data.data.list.length > 0) {
+
+                return data.data.list.map(item => ({
+
+                    period: item.issueNumber,
+
+                    result: parseInt(item.number)
+
+                }));
+
+            }
+
+            return [];
+
+        } catch (error) {
+
+            console.error("Error fetching game results:", error);
+
+            return [];
+
+        }
+
+    }
+
+
+
+    // New prediction calculation method
+
+    function calculatePrediction(results) {
+
+        let calculationSteps = [];
+
+        
+
+        if (results.length < 2) {
+
+            calculationSteps.push("Not enough data (need at least 2 previous results)");
+
+            document.getElementById("calculationSteps").innerHTML = calculationSteps.join("\n");
+
+            return { prediction: "SMALL", steps: calculationSteps };
+
+        }
+
+        
+
+        // Get last two results
+
+        const lastResult = results[0].result;
+
+        const prevResult = results[1].result;
+
+        const lastPeriod = results[0].period;
+
+        
+
+        calculationSteps.push(`Last Period: ${lastPeriod}`);
+
+        calculationSteps.push(`Last Result: ${lastResult}`);
+
+        calculationSteps.push(`Previous Result: ${prevResult}`);
+
+        
+
+        // Get last digit of last period
+
+        const lastPeriodDigit = parseInt(lastPeriod.toString().slice(-1));
+
+        calculationSteps.push(`Last Digit of Last Period: ${lastPeriodDigit}`);
+
+        
+
+        // Calculation steps
+
+        calculationSteps.push("\nCalculation Steps:");
+
+        calculationSteps.push(`1. Add last digit of last period (${lastPeriodDigit}) + last result (${lastResult})`);
+
+        const step1 = lastPeriodDigit + lastResult;
+
+        calculationSteps.push(`   = ${lastPeriodDigit} + ${lastResult} = ${step1}`);
+
+        
+
+        calculationSteps.push(`2. Subtract previous result (${prevResult})`);
+
+        const step2 = step1 - prevResult;
+
+        calculationSteps.push(`   = ${step1} - ${prevResult} = ${step2}`);
+
+        
+
+        calculationSteps.push("3. Sum the digits of the result");
+
+        const step3 = Math.abs(step2).toString().split('').reduce((a, b) => parseInt(a) + parseInt(b), 0);
+
+        calculationSteps.push(`   = Sum of digits of ${step2} = ${step3}`);
+
+        
+
+        // Final prediction
+
+        const prediction = step3 >= 5 ? "BIG" : "SMALL";
+
+        calculationSteps.push(`\nFinal Prediction: ${step3} → ${prediction}`);
+
+        
+
+        document.getElementById("calculationSteps").innerHTML = calculationSteps.join("\n");
+
+        document.getElementById("finalPrediction").textContent = `NumberPredction: ${step3} → ${prediction}`;
+
+        
+
+        return { prediction, steps: calculationSteps };
+
+    }
+
+
+
+    // Determine if number is BIG or SMALL
+
+    function getResultType(number) {
+
+        return number >= 5 ? 'BIG' : 'SMALL';
+
+    }
+
+
+
+    // Update the prediction display
+
+    async function updatePrediction() {
+
+        updateTimestamp();
+
+        
+
+        const currentPeriod = await fetchCurrentGameIssue();
+
+        if (!currentPeriod) return;
+
+        
+
+        document.getElementById("currentPeriod").textContent = currentPeriod;
+
+        
+
+        // Only proceed if we have a new period
+
+        if (lastFetchedPeriod !== currentPeriod) {
+
+            lastFetchedPeriod = currentPeriod;
+
+            predictionStored = false; // Reset flag for new period
+
+            
+
+            // Get results to check previous predictions
+
+            const results = await fetchGameResults();
+
+            if (results.length > 0) {
+
+                lastResults = results;
+
+                
+
+                // Update previous prediction status if available
+
+                if (historyData.length > 0 && historyData[0].status === 'PENDING') {
+
+                    const prevPeriod = historyData[0].period;
+
+                    const prevResult = results.find(r => r.period === prevPeriod);
+
+                    
+
+                    if (prevResult) {
+
+                        const resultType = getResultType(prevResult.result);
+
+                        historyData[0].result = resultType;
+
+                        historyData[0].status = historyData[0].prediction === resultType ? 'WIN' : 'LOSS';
+
+                    }
+
+                }
+
+            }
+
+            
+
+            // Calculate new prediction with new algorithm
+
+            const { prediction, steps } = calculatePrediction(lastResults);
+
+            document.getElementById("prediction").textContent = prediction;
+
+            
+
+            // Check if this period already exists in history
+
+            const periodExists = historyData.some(item => item.period === currentPeriod);
+
+            
+
+            // Add to history only if not already stored for this period
+
+            if (!periodExists && !predictionStored) {
+
+                historyData.unshift({
+
+                    period: currentPeriod,
+
+                    prediction: prediction,
+
+                    result: null,
+
+                    status: 'PENDING'
+
+                });
+
+                predictionStored = true;
+
+                
+
+                // Keep history limited
+
+                if (historyData.length > HISTORY_LENGTH) {
+
+                    historyData = historyData.slice(0, HISTORY_LENGTH);
+
+                }
+
+                
+
+                // Save to local storage
+
+                localStorage.setItem('wingoHistory', JSON.stringify(historyData));
+
+            }
+
+            
+
+            updateStats();
+
+            updateHistory();
+
+        }
+
+    }
+
+
+
+    function updateStats() {
+
+        const wins = historyData.filter(item => item.status === 'WIN').length;
+
+        const losses = historyData.filter(item => item.status === 'LOSS').length;
+
+        const total = wins + losses;
+
+        const accuracy = total > 0 ? ((wins / total) * 100).toFixed(2) + '%' : '0%';
+
+        
+
+        document.getElementById("totalWins").textContent = wins;
+
+        document.getElementById("totalLosses").textContent = losses;
+
+        document.getElementById("accuracy").textContent = accuracy;
+
+    }
+
+
+
+    function updateHistory() {
+
+        const historyTable = document.getElementById("historyList");
+
+        historyTable.innerHTML = "";
+
+        
+
+        historyData.forEach(item => {
+
+            const row = document.createElement("tr");
+
+            const resultDisplay = item.result ? (item.result === 'BIG' ? 'B' : 'S') : '-';
+
+            const shortPeriod = item.period.toString().slice(-4); // Show only last 4 digits
+
+            
+
+            row.innerHTML = `
+
+                <td>${shortPeriod}</td>
+
+                <td>${item.prediction}</td>
+
+                <td>${resultDisplay}</td>
+
+                <td class="${item.status.toLowerCase()}">${item.status}</td>
+
+            `;
+
+            historyTable.appendChild(row);
+
+        });
+
+    }
+
+
+
+    // Initialize
+
+    updatePrediction();
+
+    // Update every 1 seconds
+
+    setInterval(updatePrediction, 1000);
+
+</script>
+
+</body>
+
+</html>
+
